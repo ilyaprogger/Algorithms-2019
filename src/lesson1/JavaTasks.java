@@ -4,7 +4,6 @@ package lesson1;
 import kotlin.NotImplementedError;
 
 import java.io.*;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Scanner;
@@ -62,7 +61,7 @@ public class JavaTasks {
                 } else {
                     PM.add(s);
                 }
-            } else throw new EOFException();
+            } else throw new NotImplementedError("Неверный формат");
         }
         Collections.sort(AM);// O(n*log(n))
         Collections.sort(PM);// O(n*log(n))
@@ -104,8 +103,9 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public void sortAddresses(String inputName, String outputName) {
-        throw new NotImplementedError();
+    static public void sortAddresses(String inputName, String outputName)throws IOException  {
+        Scanner scanner = new Scanner(new File(inputName));
+        PrintWriter writer = new PrintWriter(new File(outputName));
     }
 
     /**
