@@ -178,19 +178,20 @@ public class JavaTasks {
      * 99.5
      * 121.3
      */
-    //Сложность О(n) Память 7730(max)
+    //Сложность О(n*log(n)) Память 7730(max)
     static public void sortTemperatures(String inputName, String outputName) throws IOException {
         Scanner scanner = new Scanner(new File(inputName));
         PrintWriter writer = new PrintWriter(new File(outputName));
 
         TreeMap<Float, Integer> sort = new TreeMap<>();
-        int a = 1;
+        int a;
         while (scanner.hasNext()) {
             String s = scanner.nextLine();
             if (sort.containsKey(Float.parseFloat(s))) {
                 a = sort.get(Float.parseFloat(s));
                 sort.put(Float.parseFloat(s), a + 1);
             } else {
+                a = 1;
                 sort.put(Float.parseFloat(s), a);
             }
         }
