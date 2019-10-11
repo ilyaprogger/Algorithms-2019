@@ -4,9 +4,7 @@ package lesson1;
 import kotlin.NotImplementedError;
 
 import java.io.*;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.Scanner;
+import java.util.*;
 import java.util.regex.Pattern;
 
 @SuppressWarnings("unused")
@@ -42,29 +40,30 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
+    // Сложность O(n*log(n)) Память O(11n)
     static public void sortTimes(String inputName, String outputName) throws IOException {
         Scanner scanner = new Scanner(new File(inputName));
         PrintWriter writer = new PrintWriter(new File(outputName));
 
-        LinkedList<String> AM = new LinkedList<>();
-        LinkedList<String> PM = new LinkedList<>();
+        ArrayList<String> AM = new ArrayList<>();
+        ArrayList<String> PM = new ArrayList<>();
 
         while (scanner.hasNext()) {
             String s = scanner.nextLine();
-            String[] pk = s.split(" ");
+            String[] spliter = s.split(" ");
             if (Pattern.matches("((0[1-9]:)|(1[0-2]:))[0-5][0-9]:[0-5][0-9] ((AM)|(PM))", s)) {
-                if (pk[0].startsWith("12")) {
-                    s = "00" + pk[0].substring(2) + " " + pk[1];
+                if (spliter[0].startsWith("12")) {
+                    s = "00" + spliter[0].substring(2) + " " + spliter[1];
                 }
-                if (pk[1].equals("AM")) {
+                if (spliter[1].equals("AM")) {
                     AM.add(s);
                 } else {
                     PM.add(s);
                 }
             } else throw new NotImplementedError("Неверный формат");
         }
-        Collections.sort(AM);// O(n*log(n))
-        Collections.sort(PM);// O(n*log(n))
+        Collections.sort(AM);
+        Collections.sort(PM);
         AM.addAll(PM);
 
         for (String s : AM) {
@@ -103,9 +102,50 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    static public void sortAddresses(String inputName, String outputName)throws IOException  {
+    // Сложность O(n*log(n)) Память O(nk) где k максимальаня длина строки
+    static public void sortAddresses(String inputName, String outputName) throws IOException {
         Scanner scanner = new Scanner(new File(inputName));
         PrintWriter writer = new PrintWriter(new File(outputName));
+
+        TreeMap<String, TreeSet<String>> map = new TreeMap<>();
+        TreeSet<String> nameSurname = new TreeSet<>();
+
+        while (scanner.hasNext()) {
+            String s = scanner.nextLine();
+            String[] spliter = s.split(" - ");
+            String[] split = spliter[1].split(" ");
+            if (Integer.parseInt(split[1]) < 10) {
+                s = spliter[0] + " - " + split[0] + " 0" + split[1];
+                spliter = s.split(" - ");
+            }
+            if (Pattern.matches(("[а-яА-Яa-zA-Z]+ [а-яА-Яa-zA-Z]+ - .+ [0-9][0-9]*"), s)) {
+                if (map.containsKey(spliter[1])) {
+                    nameSurname = map.get(spliter[1]);
+                    nameSurname.add(spliter[0]);
+                    map.put(spliter[1], nameSurname);
+                } else {
+                    nameSurname.add(spliter[0]);
+                    map.put(spliter[1], nameSurname);
+                }
+                nameSurname = new TreeSet<>();
+
+            } else throw new NotImplementedError(s);
+
+        }
+
+        String[] split;
+        StringBuilder res = new StringBuilder();
+        for (Map.Entry<String, TreeSet<String>> entry : map.entrySet()) {
+            split = entry.getKey().split(" ");
+            for (String en : entry.getValue()) {
+                res.append(en + ", ");
+            }
+            writer.println(split[0] + " " + Integer.parseInt(split[1])
+                    + " - " + res.substring(0, res.length() - 2));
+
+            res.delete(0, res.length());
+        }
+        writer.close();
     }
 
     /**
@@ -138,8 +178,28 @@ public class JavaTasks {
      * 99.5
      * 121.3
      */
-    static public void sortTemperatures(String inputName, String outputName) {
-        throw new NotImplementedError();
+    //Сложность О(n) Память 7730(max)
+    static public void sortTemperatures(String inputName, String outputName) throws IOException {
+        Scanner scanner = new Scanner(new File(inputName));
+        PrintWriter writer = new PrintWriter(new File(outputName));
+
+        TreeMap<Float, Integer> sort = new TreeMap<>();
+        int a = 1;
+        while (scanner.hasNext()) {
+            String s = scanner.nextLine();
+            if (sort.containsKey(Float.parseFloat(s))) {
+                a = sort.get(Float.parseFloat(s));
+                sort.put(Float.parseFloat(s), a + 1);
+            } else {
+                sort.put(Float.parseFloat(s), a);
+            }
+        }
+        for (Map.Entry<Float, Integer> entry : sort.entrySet()) {
+            for (int i = 0; i < entry.getValue(); i++) {
+                writer.println(entry.getKey());
+            }
+        }
+        writer.close();
     }
 
     /**
