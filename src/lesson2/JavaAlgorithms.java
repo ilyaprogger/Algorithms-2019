@@ -3,6 +3,7 @@ package lesson2;
 import kotlin.NotImplementedError;
 import kotlin.Pair;
 
+import java.util.Arrays;
 import java.util.Set;
 
 @SuppressWarnings("unused")
@@ -113,8 +114,20 @@ public class JavaAlgorithms {
      * Справка: простым считается число, которое делится нацело только на 1 и на себя.
      * Единица простым числом не считается.
      */
+    //Сложность О(n*log(log(n))) Память O(n)
     static public int calcPrimesNumber(int limit) {
-        throw new NotImplementedError();
+        boolean[] primes = new boolean[limit + 1];
+        Arrays.fill(primes, true);
+        int prime = 0;
+        for (int i = 2; i < limit + 1; ++i) {
+            if (primes[i]) {
+                prime++;
+                for (int j = 2; i * j < primes.length; ++j) {
+                    primes[i * j] = false;
+                }
+            }
+        }
+        return prime;
     }
 
     /**
