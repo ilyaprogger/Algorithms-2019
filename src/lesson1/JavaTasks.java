@@ -185,6 +185,7 @@ public class JavaTasks {
 
         TreeMap<Float, Integer> sort = new TreeMap<>();
         int a;
+
         while (scanner.hasNext()) {
             String s = scanner.nextLine();
             if (sort.containsKey(Float.parseFloat(s))) {
