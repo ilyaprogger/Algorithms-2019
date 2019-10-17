@@ -104,36 +104,41 @@ public class JavaAlgorithms {
      */
     //Сложность О(n^2) где n - самая длинная строка из 2, Память О(n^2)
     static public String longestCommonSubstring(String first, String second) {
-        String result = "";
-        int counter = 0;
 
-        String[][] table = new String[first.length() - 1][second.length() - 1];
+        StringBuilder s = new StringBuilder();
 
+        short[][] table = new short[first.length() - 1][second.length() - 1];
         for (int i = 0; i < first.length() - 1; i++) {
             for (int j = 0; j < second.length() - 1; j++) {
-                table[i][j] = "";
+                table[i][j] = 0;
                 if (first.charAt(i) == second.charAt(j)) {
-                    table[i][j] += second.charAt(j);
+                    table[i][j] = 1;
                     if (i > 0 && j > 0) {
                         table[i][j] += table[i - 1][j - 1];
-                        table[i - 1][j - 1] = "";
                     }
                 }
             }
         }
 
-        StringBuilder s = new StringBuilder();
+        int a = 0;
+        int counter = 0;
+
         for (int i = 0; i < first.length() - 1; i++) {
             for (int j = 0; j < second.length() - 1; j++) {
-                if (table[i][j] != null && table[i][j].length() > counter) {
-                    counter = table[i][j].length();
-                    result = table[i][j];
+                if (table[i][j] != 0 && table[i][j] > counter) {
+                    counter = table[i][j];
+                    a = i;
                 }
             }
         }
 
-        s.append(result).reverse();
-        return s.toString();
+        while (counter > 0) {
+            counter--;
+            s.append(first.charAt(a));
+            a--;
+        }
+
+        return s.reverse().toString();
     }
 
 
