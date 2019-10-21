@@ -41,15 +41,15 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     // Сложность O(n*log(n)) Память O(11n)
-    static public void sortTimes(String inputName, String outputName) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(inputName));
+    static public void sortTimes(String inputName, String outputName) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         PrintWriter writer = new PrintWriter(new File(outputName));
 
         ArrayList<String> AM = new ArrayList<>();
         ArrayList<String> PM = new ArrayList<>();
+        String s = bf.readLine();
 
-        while (scanner.hasNext()) {
-            String s = scanner.nextLine();
+        while (s != null) {
             String[] spliter = s.split(" ");
             if (Pattern.matches("((0[1-9]:)|(1[0-2]:))[0-5][0-9]:[0-5][0-9] ((AM)|(PM))", s)) {
                 if (spliter[0].startsWith("12")) {
@@ -61,16 +61,17 @@ public class JavaTasks {
                     PM.add(s);
                 }
             } else throw new NotImplementedError("Неверный формат");
+            s = bf.readLine();
         }
         Collections.sort(AM);
         Collections.sort(PM);
         AM.addAll(PM);
 
-        for (String s : AM) {
-            if (s.startsWith("00")) {
-                s = "12" + s.substring(2);
+        for (String str : AM) {
+            if (str.startsWith("00")) {
+                str = "12" + str.substring(2);
             }
-            writer.println(s);
+            writer.println(str);
         }
         writer.close();
     }
@@ -103,15 +104,15 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     // Сложность O(n*log(n)) Память O(nk) где k максимальаня длина строки
-    static public void sortAddresses(String inputName, String outputName) throws FileNotFoundException {
-        Scanner scanner = new Scanner(new File(inputName));
+    static public void sortAddresses(String inputName, String outputName) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         PrintWriter writer = new PrintWriter(new File(outputName));
 
         TreeMap<String, TreeSet<String>> map = new TreeMap<>();
         TreeSet<String> nameSurname = new TreeSet<>();
+        String s = bf.readLine();
 
-        while (scanner.hasNext()) {
-            String s = scanner.nextLine();
+        while (s != null) {
             String[] spliter = s.split(" - ");
             String[] split = spliter[1].split(" ");
             if (Integer.parseInt(split[1]) < 10) {
@@ -130,7 +131,7 @@ public class JavaTasks {
                 nameSurname = new TreeSet<>();
 
             } else throw new NotImplementedError(s);
-
+            s = bf.readLine();
         }
 
         String[] split;
@@ -188,7 +189,7 @@ public class JavaTasks {
         int a;
         String s = bf.readLine();
 
-        while (s!=null) {
+        while (s != null) {
             if (sort.containsKey(Float.parseFloat(s))) {
                 a = sort.get(Float.parseFloat(s));
                 sort.put(Float.parseFloat(s), a + 1);

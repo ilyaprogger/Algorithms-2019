@@ -13,6 +13,54 @@ abstract class AbstractTaskTests : AbstractFileTests() {
 
     protected fun sortTimes(sortTimes: (String, String) -> Unit) {
         try {
+            sortTimes("input/mytime_test.txt", "temp.txt")
+            assertFileContent(
+                "temp.txt",
+                """
+                    01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 AM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+01:15:19 PM
+                """.trimIndent()
+            )
+        } finally {
+            File("temp.txt").delete()
+        }
+        try {
             sortTimes("input/time_in1.txt", "temp.txt")
             assertFileContent(
                 "temp.txt",
@@ -48,6 +96,19 @@ abstract class AbstractTaskTests : AbstractFileTests() {
     }
 
     protected fun sortAddresses(sortAddresses: (String, String) -> Unit) {
+        try {
+            sortAddresses("input/myadress_test.txt", "temp.txt")
+            assertFileContent(
+                "temp.txt",
+                """ 
+                    Железнодорожная 3 - Петров Иван
+                    Фадеева 2 - Алексеев Андрей
+                    Фадеева 19 - Трачук Илья
+                """.trimIndent()
+            )
+        } finally {
+            File("temp.txt").delete()
+        }
         try {
             sortAddresses("input/addr_in1.txt", "temp.txt")
             assertFileContent(
@@ -101,6 +162,29 @@ abstract class AbstractTaskTests : AbstractFileTests() {
     }
 
     protected fun sortTemperatures(sortTemperatures: (String, String) -> Unit) {
+        try {
+            sortTemperatures("input/mytemp_test.txt", "temp.txt")
+            assertFileContent(
+                "temp.txt",
+                """
+                   -243.1
+                   -98.4
+                   -12.6
+                   -12.6
+                   -1.2
+                   0.0
+                   0.0
+                   11.0
+                   24.7
+                   99.5
+                   112.1
+                   121.3
+                   256.0
+                """.trimIndent()
+            )
+        } finally {
+            File("temp.txt").delete()
+        }
         try {
             sortTemperatures("input/temp_in1.txt", "temp.txt")
             assertFileContent(

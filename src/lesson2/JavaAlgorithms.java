@@ -108,9 +108,9 @@ public class JavaAlgorithms {
 
         StringBuilder s = new StringBuilder();
 
-        short[][] table = new short[first.length() - 1][second.length() - 1];
-        for (int i = 0; i < first.length() - 1; i++) {
-            for (int j = 0; j < second.length() - 1; j++) {
+        short[][] table = new short[first.length()][second.length()];
+        for (int i = 0; i < first.length() ; i++) {
+            for (int j = 0; j < second.length() ; j++) {
                 table[i][j] = 0;
                 if (first.charAt(i) == second.charAt(j)) {
                     table[i][j] = 1;
@@ -124,19 +124,19 @@ public class JavaAlgorithms {
         int a = 0;
         int counter = 0;
 
-        for (int i = 0; i < first.length() - 1; i++) {
-            for (int j = 0; j < second.length() - 1; j++) {
-                if (table[i][j] != 0 && table[i][j] > counter) {
+        for (int i = 0; i < first.length() ; i++) {
+            for (int j = 0; j < second.length() ; j++) {
+                if (table[i][j] > counter) {
                     counter = table[i][j];
-                    a = i;
+                    a = j;
                 }
             }
         }
 
         while (counter > 0) {
-            counter--;
-            s.append(first.charAt(a));
+            s.append(second.charAt(a));
             a--;
+            counter--;
         }
 
         return s.reverse().toString();
@@ -195,6 +195,7 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
+
     static public Set<String> baldaSearcher(String inputName, Set<String> words) throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         ArrayList<String> balda = new ArrayList<>();
@@ -202,7 +203,7 @@ public class JavaAlgorithms {
         String s = bf.readLine();
 
         while (s != null) {
-            if (Pattern.matches(("([А-Я] )+[А-Я]"), s)) {
+            if (Pattern.matches(("([А-ЯA-Z] )+[А-ЯA-Z]"), s)) {
                 balda.add(s);
                 s = bf.readLine();
             } else throw new NotImplementedError();
@@ -233,27 +234,29 @@ public class JavaAlgorithms {
 
     static private boolean balda(char[][] matrixBalda, String word, int index, int i, int j
             , int lineCounter, int columnCounter) {
+
         if (index == word.length()) {
             return true;
         }
+
         char letter = word.charAt(index);
         if (matrixBalda[i][j] != letter) {
             return false;
-        } else {
-            boolean left = false, right = false, top = false, bot = false;
-            if (i > 0) {
-                bot = balda(matrixBalda, word, index + 1, i - 1, j, lineCounter, columnCounter);
-            }
-            if (i < lineCounter - 1) {
-                top = balda(matrixBalda, word, index + 1, i + 1, j, lineCounter, columnCounter);
-            }
-            if (j > 0) {
-                left = balda(matrixBalda, word, index + 1, i, j - 1, lineCounter, columnCounter);
-            }
-            if (j < columnCounter - 1) {
-                right = balda(matrixBalda, word, index + 1, i, j + 1, lineCounter, columnCounter);
-            }
-            return left || right || top || bot;
         }
+
+        boolean left = false, right = false, top = false, bot = false;
+        if (i > 0) {
+            bot = balda(matrixBalda, word, index + 1, i - 1, j, lineCounter, columnCounter);
+        }
+        if (i < lineCounter - 1) {
+            top = balda(matrixBalda, word, index + 1, i + 1, j, lineCounter, columnCounter);
+        }
+        if (j > 0) {
+            left = balda(matrixBalda, word, index + 1, i, j - 1, lineCounter, columnCounter);
+        }
+        if (j < columnCounter - 1) {
+            right = balda(matrixBalda, word, index + 1, i, j + 1, lineCounter, columnCounter);
+        }
+        return left || right || top || bot;
     }
 }
