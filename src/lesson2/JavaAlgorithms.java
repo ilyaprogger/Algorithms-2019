@@ -195,7 +195,9 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
-
+//Сложность О(длина слова * кол-во слов в списке * длину строки матрицы * длину столбца в матрице)
+    //Память(длину строки матрицы * длину столбца в матрице)
+    //Не знаю надо ли указывать , что при рекурсии выделяется память в стеке.
     static public Set<String> baldaSearcher(String inputName, Set<String> words) throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         ArrayList<String> balda = new ArrayList<>();
