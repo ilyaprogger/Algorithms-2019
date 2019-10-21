@@ -3,9 +3,10 @@ package lesson2;
 import kotlin.NotImplementedError;
 import kotlin.Pair;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Set;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.*;
+import java.util.regex.Pattern;
 
 
 @SuppressWarnings("unused")
@@ -194,7 +195,65 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
-    static public Set<String> baldaSearcher(String inputName, Set<String> words) {
-        throw new NotImplementedError();
+    static public Set<String> baldaSearcher(String inputName, Set<String> words) throws IOException {
+        BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
+        ArrayList<String> balda = new ArrayList<>();
+        Set<String> resultSet = new HashSet<>();
+        String s = bf.readLine();
+
+        while (s != null) {
+            if (Pattern.matches(("([А-Я] )+[А-Я]"), s)) {
+                balda.add(s);
+                s = bf.readLine();
+            } else throw new NotImplementedError();
+        }
+
+        int lineCounter = balda.size();
+        int columnCounter = balda.get(0).length() / 2 + 1;
+        char[][] matrixBalda = new char[lineCounter][columnCounter];
+        for (int i = 0; i < lineCounter; i++) {
+            String[] split = balda.get(i).split(" ");
+            for (int j = 0; j < columnCounter; j++) {
+                matrixBalda[i][j] = split[j].charAt(0);
+            }
+        }
+
+        for (String word : words) {
+            for (int i = 0; i < lineCounter; i++) {
+                for (int j = 0; j < columnCounter; j++) {
+                    if (word.charAt(0) == matrixBalda[i][j] && balda(matrixBalda, word, 0, i, j
+                            , lineCounter, columnCounter)) {
+                        resultSet.add(word);
+                    }
+                }
+            }
+        }
+        return resultSet;
+    }
+
+    static private boolean balda(char[][] matrixBalda, String word, int index, int i, int j
+            , int lineCounter, int columnCounter) {
+        if (index == word.length()) {
+            return true;
+        }
+        char letter = word.charAt(index);
+        if (matrixBalda[i][j] != letter) {
+            return false;
+        } else {
+            boolean left = false, right = false, top = false, bot = false;
+            if (i > 0) {
+                bot = balda(matrixBalda, word, index + 1, i - 1, j, lineCounter, columnCounter);
+            }
+            if (i < lineCounter - 1) {
+                top = balda(matrixBalda, word, index + 1, i + 1, j, lineCounter, columnCounter);
+            }
+            if (j > 0) {
+                left = balda(matrixBalda, word, index + 1, i, j - 1, lineCounter, columnCounter);
+            }
+            if (j < columnCounter - 1) {
+                right = balda(matrixBalda, word, index + 1, i, j + 1, lineCounter, columnCounter);
+            }
+            return left || right || top || bot;
+        }
     }
 }

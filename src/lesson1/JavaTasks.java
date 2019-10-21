@@ -41,7 +41,7 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     // Сложность O(n*log(n)) Память O(11n)
-    static public void sortTimes(String inputName, String outputName) throws IOException {
+    static public void sortTimes(String inputName, String outputName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(inputName));
         PrintWriter writer = new PrintWriter(new File(outputName));
 
@@ -103,7 +103,7 @@ public class JavaTasks {
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
     // Сложность O(n*log(n)) Память O(nk) где k максимальаня длина строки
-    static public void sortAddresses(String inputName, String outputName) throws IOException {
+    static public void sortAddresses(String inputName, String outputName) throws FileNotFoundException {
         Scanner scanner = new Scanner(new File(inputName));
         PrintWriter writer = new PrintWriter(new File(outputName));
 
@@ -180,14 +180,15 @@ public class JavaTasks {
      */
     //Сложность О(n*log(n)) Память 7730(max)
     static public void sortTemperatures(String inputName, String outputName) throws IOException {
-        Scanner scanner = new Scanner(new File(inputName));
         PrintWriter writer = new PrintWriter(new File(outputName));
+        BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
 
         TreeMap<Float, Integer> sort = new TreeMap<>();
-        int a;
 
-        while (scanner.hasNext()) {
-            String s = scanner.nextLine();
+        int a;
+        String s = bf.readLine();
+
+        while (s!=null) {
             if (sort.containsKey(Float.parseFloat(s))) {
                 a = sort.get(Float.parseFloat(s));
                 sort.put(Float.parseFloat(s), a + 1);
@@ -195,6 +196,7 @@ public class JavaTasks {
                 a = 1;
                 sort.put(Float.parseFloat(s), a);
             }
+            s = bf.readLine();
         }
         for (Map.Entry<Float, Integer> entry : sort.entrySet()) {
             for (int i = 0; i < entry.getValue(); i++) {
