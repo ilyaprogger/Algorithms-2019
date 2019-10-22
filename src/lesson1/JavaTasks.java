@@ -40,7 +40,8 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    // Сложность O(n*log(n)) Память O(n)
+    // Сложность O(n*log(n))
+    // Память O(n)
     static public void sortTimes(String inputName, String outputName) throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         PrintWriter writer = new PrintWriter(new File(outputName));
@@ -60,7 +61,7 @@ public class JavaTasks {
                 } else {
                     PM.add(s);
                 }
-            } else throw new NotImplementedError();
+            } else throw new IllegalArgumentException();
             s = bf.readLine();
         }
         Collections.sort(AM);
@@ -103,7 +104,8 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    // Сложность O(n*log(n)) Память O(nk) где k максимальаня длина строки
+    // Сложность O(n*log(n))
+    // Память O(nk) где k максимальаня длина строки
     static public void sortAddresses(String inputName, String outputName) throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         PrintWriter writer = new PrintWriter(new File(outputName));
@@ -179,7 +181,8 @@ public class JavaTasks {
      * 99.5
      * 121.3
      */
-    //Сложность О(n*log(n)) Память 7730(max)
+    //Сложность О(n*log(n))
+    // Память 7730(max)
     static public void sortTemperatures(String inputName, String outputName) throws IOException {
         PrintWriter writer = new PrintWriter(new File(outputName));
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));

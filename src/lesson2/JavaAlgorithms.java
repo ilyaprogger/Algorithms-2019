@@ -103,10 +103,13 @@ public class JavaAlgorithms {
      * Если имеется несколько самых длинных общих подстрок одной длины,
      * вернуть ту из них, которая встречается раньше в строке first.
      */
-    //Сложность О(n^2) где n - самая длинная строка из 2, Память О(n^2)
+    //Сложность О(n^2) где n - самая длинная строка из 2,
+    // Память О(n^2)
     static public String longestCommonSubstring(String first, String second) {
 
         StringBuilder s = new StringBuilder();
+        int a = 0;
+        int counter = 0;
 
         short[][] table = new short[first.length()][second.length()];
         for (int i = 0; i < first.length(); i++) {
@@ -117,18 +120,10 @@ public class JavaAlgorithms {
                     if (i > 0 && j > 0) {
                         table[i][j] += table[i - 1][j - 1];
                     }
-                }
-            }
-        }
-
-        int a = 0;
-        int counter = 0;
-
-        for (int i = 0; i < first.length(); i++) {
-            for (int j = 0; j < second.length(); j++) {
-                if (table[i][j] > counter) {
-                    counter = table[i][j];
-                    a = j;
+                    if (table[i][j] > counter) {
+                        counter = table[i][j];
+                        a = j;
+                    }
                 }
             }
         }
@@ -138,7 +133,6 @@ public class JavaAlgorithms {
             a--;
             counter--;
         }
-
         return s.reverse().toString();
     }
 
@@ -153,7 +147,8 @@ public class JavaAlgorithms {
      * Справка: простым считается число, которое делится нацело только на 1 и на себя.
      * Единица простым числом не считается.
      */
-    //Сложность О(n*log(log(n))) Память O(n)
+    //Сложность О(n*log(log(n)))
+    // Память O(n)
     static public int calcPrimesNumber(int limit) {
         boolean[] primes = new boolean[limit + 1];
         Arrays.fill(primes, true);
@@ -195,7 +190,7 @@ public class JavaAlgorithms {
      * В файле буквы разделены пробелами, строки -- переносами строк.
      * Остальные символы ни в файле, ни в словах не допускаются.
      */
-//Сложность О(4*3^(длина слова -1) * кол-во слов в списке * длину строки матрицы * длину столбца в матрице)
+    //Сложность О(4*3^(длина слова -1) * кол-во слов в списке * длину строки матрицы * длину столбца в матрице)
     //Память(длину строки матрицы * длину столбца в матрице * 3^(длина слова -1)->(сколько вызовет рекурсий в стеке))
     static public Set<String> baldaSearcher(String inputName, Set<String> words) throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
@@ -224,10 +219,9 @@ public class JavaAlgorithms {
             for (int i = 0; i < lineCounter; i++) {
                 for (int j = 0; j < columnCounter; j++) {
                     if (word.charAt(0) == matrixBalda[i][j] && balda(matrixBalda, word, 0, i, j
-                            , lineCounter, columnCounter)) {
+                             , lineCounter, columnCounter)) {
                         resultSet.add(word);
                     }
-                  //  xb = new boolean[lineCounter][columnCounter];
                 }
             }
         }
