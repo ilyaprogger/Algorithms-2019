@@ -1,6 +1,7 @@
 package lesson1
 
 import org.junit.jupiter.api.Assertions.assertArrayEquals
+import org.junit.jupiter.api.assertThrows
 import util.PerfResult
 import util.estimate
 import java.io.BufferedWriter
@@ -12,6 +13,13 @@ import kotlin.system.measureNanoTime
 abstract class AbstractTaskTests : AbstractFileTests() {
 
     protected fun sortTimes(sortTimes: (String, String) -> Unit) {
+        try {
+            assertThrows<IllegalArgumentException> {
+                sortTimes("input/mytime_test2.txt", "temp.txt")
+            }
+        } finally {
+            File("temp.txt").delete()
+        }
         try {
             sortTimes("input/mytime_test.txt", "temp.txt")
             assertFileContent(
@@ -96,6 +104,14 @@ abstract class AbstractTaskTests : AbstractFileTests() {
     }
 
     protected fun sortAddresses(sortAddresses: (String, String) -> Unit) {
+        try {
+            assertThrows<NotImplementedError> {
+                sortTimes("input/mytime_test2.txt", "temp.txt")
+            }
+
+        } finally {
+            File("temp.txt").delete()
+        }
         try {
             sortAddresses("input/myadress_test.txt", "temp.txt")
             assertFileContent(

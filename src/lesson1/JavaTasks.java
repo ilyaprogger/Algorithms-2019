@@ -40,7 +40,7 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    // Сложность O(n*log(n)) Память O(11n)
+    // Сложность O(n*log(n)) Память O(n)
     static public void sortTimes(String inputName, String outputName) throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         PrintWriter writer = new PrintWriter(new File(outputName));
@@ -60,7 +60,7 @@ public class JavaTasks {
                 } else {
                     PM.add(s);
                 }
-            } else throw new NotImplementedError("Неверный формат");
+            } else throw new NotImplementedError();
             s = bf.readLine();
         }
         Collections.sort(AM);
@@ -130,7 +130,7 @@ public class JavaTasks {
                 }
                 nameSurname = new TreeSet<>();
 
-            } else throw new NotImplementedError(s);
+            } else throw new IllegalArgumentException();
             s = bf.readLine();
         }
 

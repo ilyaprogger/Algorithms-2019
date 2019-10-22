@@ -109,8 +109,8 @@ public class JavaAlgorithms {
         StringBuilder s = new StringBuilder();
 
         short[][] table = new short[first.length()][second.length()];
-        for (int i = 0; i < first.length() ; i++) {
-            for (int j = 0; j < second.length() ; j++) {
+        for (int i = 0; i < first.length(); i++) {
+            for (int j = 0; j < second.length(); j++) {
                 table[i][j] = 0;
                 if (first.charAt(i) == second.charAt(j)) {
                     table[i][j] = 1;
@@ -124,8 +124,8 @@ public class JavaAlgorithms {
         int a = 0;
         int counter = 0;
 
-        for (int i = 0; i < first.length() ; i++) {
-            for (int j = 0; j < second.length() ; j++) {
+        for (int i = 0; i < first.length(); i++) {
+            for (int j = 0; j < second.length(); j++) {
                 if (table[i][j] > counter) {
                     counter = table[i][j];
                     a = j;
@@ -227,36 +227,34 @@ public class JavaAlgorithms {
                             , lineCounter, columnCounter)) {
                         resultSet.add(word);
                     }
+                  //  xb = new boolean[lineCounter][columnCounter];
                 }
             }
         }
         return resultSet;
     }
-
     static private boolean balda(char[][] matrixBalda, String word, int index, int i, int j
             , int lineCounter, int columnCounter) {
-
         if (index == word.length()) {
             return true;
         }
-
         char letter = word.charAt(index);
         if (matrixBalda[i][j] != letter) {
             return false;
         }
-
         boolean left = false, right = false, top = false, bot = false;
-        if (i > 0) {
+        if (i > 0 ) {
             bot = balda(matrixBalda, word, index + 1, i - 1, j, lineCounter, columnCounter);
         }
-        if (i < lineCounter - 1) {
+        if (i < lineCounter - 1 ) {
             top = balda(matrixBalda, word, index + 1, i + 1, j, lineCounter, columnCounter);
         }
-        if (j > 0) {
+        if (j > 0 ) {
             left = balda(matrixBalda, word, index + 1, i, j - 1, lineCounter, columnCounter);
         }
         if (j < columnCounter - 1) {
             right = balda(matrixBalda, word, index + 1, i, j + 1, lineCounter, columnCounter);
+
         }
         return left || right || top || bot;
     }
