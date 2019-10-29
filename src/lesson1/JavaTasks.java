@@ -111,7 +111,7 @@ public class JavaTasks {
         PrintWriter writer = new PrintWriter(new File(outputName));
 
         Map<String, TreeSet<String>> map = new TreeMap<>();
-        Set<String> nameSurname = new TreeSet<>();
+        TreeSet<String> nameSurname = new TreeSet<>();
         String s = bf.readLine();
 
         while (s != null) {
