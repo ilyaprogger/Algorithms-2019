@@ -46,8 +46,8 @@ public class JavaTasks {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         PrintWriter writer = new PrintWriter(new File(outputName));
 
-        ArrayList<String> AM = new ArrayList<>();
-        ArrayList<String> PM = new ArrayList<>();
+        List<String> AM = new ArrayList<>();
+        List<String> PM = new ArrayList<>();
         String s = bf.readLine();
 
         while (s != null) {
@@ -104,14 +104,14 @@ public class JavaTasks {
      * <p>
      * В случае обнаружения неверного формата файла бросить любое исключение.
      */
-    // Сложность O(n*log(n))
+    // Сложность O(n*log(n)*log(k))где n - кол-во строк , а k - кол-во людей живущих в одинаковом доме.
     // Память O(nk) где k максимальаня длина строки
     static public void sortAddresses(String inputName, String outputName) throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
         PrintWriter writer = new PrintWriter(new File(outputName));
 
-        TreeMap<String, TreeSet<String>> map = new TreeMap<>();
-        TreeSet<String> nameSurname = new TreeSet<>();
+        Map<String, TreeSet<String>> map = new TreeMap<>();
+        Set<String> nameSurname = new TreeSet<>();
         String s = bf.readLine();
 
         while (s != null) {
@@ -187,10 +187,9 @@ public class JavaTasks {
         PrintWriter writer = new PrintWriter(new File(outputName));
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
 
-        TreeMap<Float, Integer> sort = new TreeMap<>();
-
-        int a;
+        Map<Float, Integer> sort = new TreeMap<>();
         String s = bf.readLine();
+        int a;
 
         while (s != null) {
             if (sort.containsKey(Float.parseFloat(s))) {

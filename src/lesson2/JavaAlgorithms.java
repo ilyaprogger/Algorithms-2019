@@ -103,7 +103,7 @@ public class JavaAlgorithms {
      * Если имеется несколько самых длинных общих подстрок одной длины,
      * вернуть ту из них, которая встречается раньше в строке first.
      */
-    //Сложность О(n^2) где n - самая длинная строка из 2,
+    //Сложность О(n*m) где n - 1 строка,a m - 2 строка.
     // Память О(n^2)
     static public String longestCommonSubstring(String first, String second) {
 
@@ -194,7 +194,7 @@ public class JavaAlgorithms {
     //Память(длину строки матрицы * длину столбца в матрице * 3^(длина слова -1)->(сколько вызовет рекурсий в стеке))
     static public Set<String> baldaSearcher(String inputName, Set<String> words) throws IOException {
         BufferedReader bf = new BufferedReader(new FileReader(new File(inputName)));
-        ArrayList<String> balda = new ArrayList<>();
+        List<String> balda = new ArrayList<>();
         Set<String> resultSet = new HashSet<>();
         String s = bf.readLine();
 
