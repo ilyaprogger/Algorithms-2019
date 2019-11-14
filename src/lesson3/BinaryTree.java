@@ -82,7 +82,8 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Удаление элемента в дереве
      * Средняя
      */
-    //Лучший случай быстродействия O(log(n)) худший О(height()).
+    //Лучший случай быстродействия O(log(n)),где n-кол-во элементов в дереве худший О(height()).
+    //Память О(1)
     @Override
     public boolean remove(Object o) {
         T t = (T) o;
@@ -113,19 +114,17 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     }
 
     private T min(Node<T> node) {
-        Node<T> current = node;
-        while (current.left != null) {
-            current = current.left;
+        while (node.left != null) {
+            node = node.left;
         }
-        return current.value;
+        return node.value;
     }
 
     private T max(Node<T> node) {
-        Node<T> current = node;
-        while (current.right != null) {
-            current = current.right;
+        while (node.right != null) {
+            node = node.right;
         }
-        return current.value;
+        return node.value;
     }
 
     @Override
@@ -156,54 +155,60 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
     public class BinaryTreeIterator implements Iterator<T> {
 
-        private Stack<Node> stack = new Stack<>();
+        private Deque<Node<T>> deque = new LinkedList<>();
         private Node<T> node;
 
-        private BinaryTreeIterator(Node<T> argRoot) {
-            node = argRoot;
+        private BinaryTreeIterator() {
+            if (root == null) return;
+            treeIterator(root);
+            node = root;
+        }
+
+        private void treeIterator(Node<T> currentNode) {
+            if (currentNode.left != null) treeIterator(currentNode.left);
+            deque.add(currentNode);
+            if (currentNode.right != null) treeIterator(currentNode.right);
         }
 
         /**
          * Проверка наличия следующего элемента
          * Средняя
          */
+        //Быстродействия O(n),где n-кол-во элементов в дереве.
+        // Память О(1).
         @Override
         public boolean hasNext() {
-            return (!stack.isEmpty() || node != null);
+            return deque.peek() != null;
         }
 
         /**
          * Поиск следующего элемента
          * Средняя
          */
+        //Быстродействия O(n),где n-кол-во элементов в дереве.
+        // Память О(1).
         @Override
         public T next() {
-            while (node != null) {
-                stack.push(node);
-                node = node.left;
-            }
-
-            node = stack.pop();
-            Node node = this.node;
-            this.node = this.node.right;
-
-            return (T)node.value;
+            node = deque.remove();
+            return node.value;
         }
+
         /**
          * Удаление следующего элемента
          * Сложная
          */
+        //Лучший случай быстродействия O(log(n)),где n-кол-во элементов в дереве худший О(height()).
+        //Память О(1)
         @Override
         public void remove() {
-
+            BinaryTree.this.remove(node.value);
         }
-
     }
 
     @NotNull
     @Override
     public Iterator<T> iterator() {
-        return new BinaryTreeIterator(root);
+        return new BinaryTreeIterator();
     }
 
     @Override
