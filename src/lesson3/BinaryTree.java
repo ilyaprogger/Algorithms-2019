@@ -109,12 +109,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         return min(node.left);
     }
 
-    private T max(Node<T> node) {
-        if (node.right == null)
-            return node.value;
-        return min(node.right);
-    }
-
     @Override
     public boolean contains(Object o) {
         @SuppressWarnings("unchecked")

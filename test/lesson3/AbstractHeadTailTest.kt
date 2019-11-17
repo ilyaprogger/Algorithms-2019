@@ -1,7 +1,10 @@
 package lesson3
 
 import java.util.*
-import kotlin.test.*
+import kotlin.test.assertEquals
+import kotlin.test.assertFailsWith
+import kotlin.test.assertFalse
+import kotlin.test.assertTrue
 
 abstract class AbstractHeadTailTest {
     private lateinit var tree: SortedSet<Int>
@@ -66,7 +69,8 @@ abstract class AbstractHeadTailTest {
         assertEquals(true, set.contains(8))
         assertEquals(true, set.contains(9))
         assertEquals(true, set.contains(10))
-
+        assertEquals(tree.first(), 1)
+        assertEquals(tree.last(), 10)
         set = tree.tailSet(-128)
         for (i in 1..10)
             assertEquals(true, set.contains(i))
@@ -83,6 +87,8 @@ abstract class AbstractHeadTailTest {
         assertFalse(set.contains(7))
         tree.remove(3)
         tree.remove(-2)
+        assertEquals(tree.first(), 0)
+        assertEquals(tree.last(), 12)
         assertEquals(6, set.size)
         assertEquals(10, tree.size)
     }
@@ -112,6 +118,8 @@ abstract class AbstractHeadTailTest {
         assertFalse(set.contains(8))
         tree.remove(3)
         tree.remove(42)
+        assertEquals(tree.first(), 0)
+        assertEquals(tree.last(), 12)
         assertEquals(6, set.size)
         assertEquals(9, tree.size)
     }
@@ -173,6 +181,8 @@ abstract class AbstractHeadTailTest {
         assertFalse(set.contains(0))
         tree.add(15)
         assertFalse(set.contains(15))
+        assertEquals(tree.first(), 0)
+        assertEquals(tree.last(), 15)
         assertFailsWith<IllegalArgumentException> { set.add(1) }
         assertFailsWith<IllegalArgumentException> { set.add(20) }
         assertEquals(11, set.size)
@@ -189,9 +199,12 @@ abstract class AbstractHeadTailTest {
         assertFalse(set.contains(7))
         tree.remove(3)
         tree.remove(19)
+        tree.remove(14)
         assertFalse(set.contains(19))
-        assertEquals(9, set.size)
-        assertEquals(11, tree.size)
+        assertEquals(tree.first(), 0)
+        assertEquals(tree.last(), 15)
+        assertEquals(8, set.size)
+        assertEquals(10, tree.size)
     }
 
 }
