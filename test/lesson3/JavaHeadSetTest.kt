@@ -21,6 +21,7 @@ class JavaHeadSetTest : AbstractHeadTailTest() {
     @Tag("Hard")
     fun headSetRelationTest() {
         doHeadSetRelationTest()
+        doHeadRemoveTest()
     }
 
     @Test
@@ -33,12 +34,15 @@ class JavaHeadSetTest : AbstractHeadTailTest() {
     @Tag("Hard")
     fun tailSetRelationTest() {
         doTailSetRelationTest()
+        doTailRemoveTest()
     }
+
 
     @Test
     @Tag("Impossible")
     fun subSetTest() {
         doSubSetTest()
         doSubSetRelationTest()
+        doSubSetRemoveTest()
     }
 }

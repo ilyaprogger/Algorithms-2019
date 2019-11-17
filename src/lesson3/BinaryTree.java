@@ -108,6 +108,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
             return node.value;
         return min(node.left);
     }
+
     private T max(Node<T> node) {
         if (node.right == null)
             return node.value;
@@ -163,7 +164,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          * Проверка наличия следующего элемента
          * Средняя
          */
-        //Быстродействия O(1)
+        //Быстродействие O(1)
         // Память О(1).
         @Override
         public boolean hasNext() {
@@ -174,7 +175,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          * Поиск следующего элемента
          * Средняя
          */
-        //Быстродействия O(1)
+        //Быстродействие O(1)
         // Память О(1).
         @Override
         public T next() {
@@ -216,33 +217,36 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Для этой задачи нет тестов (есть только заготовка subSetTest), но её тож  можно решить и их написать
      * Очень сложная
      */
+    //Быстродействие O(n),где n - кол-во элементов в дереве.
+    //Память О(1)
     @NotNull
     @Override
     public SortedSet<T> subSet(T fromElement, T toElement) {
-        // TODO
-        throw new NotImplementedError();
+        return new SubTailHeadTree(this, fromElement, toElement);
     }
 
     /**
      * Найти множество всех элементов меньше заданного
      * Сложная
      */
+    //Быстродействие O(n),где n - кол-во элементов в дереве.
+    //Память О(1)
     @NotNull
     @Override
     public SortedSet<T> headSet(T toElement) {
-        // TODO
-        throw new NotImplementedError();
+        return new SubTailHeadTree(this, null, toElement);
     }
 
     /**
      * Найти множество всех элементов больше или равных заданного
      * Сложная
      */
+    //Быстродействие O(n),где n - кол-во элементов в дереве.
+    //Память О(1)
     @NotNull
     @Override
     public SortedSet<T> tailSet(T fromElement) {
-        // TODO
-        throw new NotImplementedError();
+        return new SubTailHeadTree(this, fromElement, null);
     }
 
     @Override
@@ -264,7 +268,49 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         }
         return current.value;
     }
-    public class SubTailHeadTree {
 
+    //Вспомогательный класс для подмножеств
+    public class SubTailHeadTree extends BinaryTree<T> {
+        private BinaryTree<T> binaryTree;
+        private final T fromElement;
+        private final T toElement;
+
+        SubTailHeadTree(BinaryTree<T> binaryTree, T fromElement, T toElement) {
+            this.binaryTree = binaryTree;
+            this.fromElement = fromElement;
+            this.toElement = toElement;
+        }
+
+        @Override
+        public boolean add(T t) {
+            if (!sub(t)) throw new IllegalArgumentException();
+            return binaryTree.add(t);
+        }
+
+        @Override
+        public boolean remove(Object o) {
+            if (!sub(o)) return false;
+            return binaryTree.remove(o);
+        }
+
+        @Override
+        public int size() {
+            return (int) binaryTree.stream().filter(this::sub).count();
+        }
+
+        @Override
+        public boolean contains(Object o) {
+            if (!sub(o)) return false;
+            return binaryTree.contains(o);
+        }
+
+        public boolean sub(Object o) {
+            T t = (T) o;
+            int from = 0;
+            if (fromElement != null) from = t.compareTo(fromElement);
+            int to = -1;
+            if (toElement != null) to = t.compareTo(toElement);
+            return from >= 0 && to < 0;
+        }
     }
 }
