@@ -16,8 +16,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
 
         Node<T> right = null;
 
-        //  Node<T> parent = null;
-
         Node(T value) {
             this.value = value;
         }
@@ -69,14 +67,6 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         return 1 + Math.max(height(node.left), height(node.right));
     }
 
-    //@Override
-    //public boolean equals(Object obj) {
-    //    if (this == obj)
-    //        return true;
-    //    if (obj == null)
-    //        return false;
-    //    return getClass() == obj.getClass();
-    //}
 
     /**
      * Удаление элемента в дереве
@@ -114,17 +104,14 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     }
 
     private T min(Node<T> node) {
-        while (node.left != null) {
-            node = node.left;
-        }
-        return node.value;
+        if (node.left == null)
+            return node.value;
+        return min(node.left);
     }
-
     private T max(Node<T> node) {
-        while (node.right != null) {
-            node = node.right;
-        }
-        return node.value;
+        if (node.right == null)
+            return node.value;
+        return min(node.right);
     }
 
     @Override
@@ -165,16 +152,18 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
         }
 
         private void treeIterator(Node<T> currentNode) {
-            if (currentNode.left != null) treeIterator(currentNode.left);
+            if (currentNode.left != null)
+                treeIterator(currentNode.left);
             deque.add(currentNode);
-            if (currentNode.right != null) treeIterator(currentNode.right);
+            if (currentNode.right != null)
+                treeIterator(currentNode.right);
         }
 
         /**
          * Проверка наличия следующего элемента
          * Средняя
          */
-        //Быстродействия O(n),где n-кол-во элементов в дереве.
+        //Быстродействия O(1)
         // Память О(1).
         @Override
         public boolean hasNext() {
@@ -185,7 +174,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
          * Поиск следующего элемента
          * Средняя
          */
-        //Быстродействия O(n),где n-кол-во элементов в дереве.
+        //Быстродействия O(1)
         // Память О(1).
         @Override
         public T next() {
@@ -224,7 +213,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
     }
 
     /**
-     * Для этой задачи нет тестов (есть только заготовка subSetTest), но её тоже можно решить и их написать
+     * Для этой задачи нет тестов (есть только заготовка subSetTest), но её тож  можно решить и их написать
      * Очень сложная
      */
     @NotNull
@@ -274,5 +263,8 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
             current = current.right;
         }
         return current.value;
+    }
+    public class SubTailHeadTree {
+
     }
 }

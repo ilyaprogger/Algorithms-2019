@@ -84,11 +84,6 @@ class BinaryTreeTest {
         }
     }
 
-    @Test
-    @Tag("Normal")
-    fun testRemoveKotlin() {
-        testRemove { createKotlinTree() }
-    }
 
     @Test
     @Tag("Normal")
@@ -127,12 +122,6 @@ class BinaryTreeTest {
                 )
             }
         }
-    }
-
-    @Test
-    @Tag("Normal")
-    fun testIteratorKotlin() {
-        testIterator { createKotlinTree() }
     }
 
     @Test
@@ -184,12 +173,6 @@ class BinaryTreeTest {
             }
             assertTrue(binarySet.checkInvariant(), "Binary tree invariant is false after tree.iterator().remove()")
         }
-    }
-
-    @Test
-    @Tag("Hard")
-    fun testIteratorRemoveKotlin() {
-        testIteratorRemove { createKotlinTree() }
     }
 
     @Test
