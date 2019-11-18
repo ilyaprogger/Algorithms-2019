@@ -58,7 +58,7 @@ public class JavaTests {
     }
 
     @Test
-    @Tag("Example")
+    @Tag("Normal")
     void testRemoveJava() {
         testRemove();
     }
