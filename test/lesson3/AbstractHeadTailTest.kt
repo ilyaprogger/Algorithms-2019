@@ -74,7 +74,6 @@ abstract class AbstractHeadTailTest {
         set = tree.tailSet(-128)
         for (i in 1..10)
             assertEquals(true, set.contains(i))
-
     }
 
     protected fun doHeadRemoveTest() {
