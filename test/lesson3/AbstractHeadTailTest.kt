@@ -203,7 +203,7 @@ abstract class AbstractHeadTailTest {
         assertEquals(tree.first(), 0)
         assertEquals(tree.last(), 15)
         assertEquals(8, set.size)
-        assertEquals(10, tree.size)
+        assertEquals(11, tree.size)
     }
 
 }
