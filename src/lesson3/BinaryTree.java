@@ -211,7 +211,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Для этой задачи нет тестов (есть только заготовка subSetTest), но её тож  можно решить и их написать
      * Очень сложная
      */
-    //Быстродействие O(n),где n - кол-во элементов в дереве.
+    //Быстродействие  О(1)
     //Память О(1)
     @NotNull
     @Override
@@ -223,7 +223,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Найти множество всех элементов меньше заданного
      * Сложная
      */
-    //Быстродействие O(n),где n - кол-во элементов в дереве.
+    //Быстродействие  О(1)
     //Память О(1)
     @NotNull
     @Override
@@ -235,7 +235,7 @@ public class BinaryTree<T extends Comparable<T>> extends AbstractSet<T> implemen
      * Найти множество всех элементов больше или равных заданного
      * Сложная
      */
-    //Быстродействие O(n),где n - кол-во элементов в дереве.
+    //Быстродействие  О(1)
     //Память О(1)
     @NotNull
     @Override
