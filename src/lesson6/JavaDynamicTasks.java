@@ -2,7 +2,9 @@ package lesson6;
 
 import kotlin.NotImplementedError;
 
-import java.util.List;
+import java.util.*;
+
+import static java.lang.Math.max;
 
 @SuppressWarnings("unused")
 public class JavaDynamicTasks {
@@ -17,7 +19,7 @@ public class JavaDynamicTasks {
      * Если общей подпоследовательности нет, вернуть пустую строку.
      * Если есть несколько самых длинных общих подпоследовательностей, вернуть любую из них.
      * При сравнении подстрок, регистр символов *имеет* значение.
-     */ //сложностью O(nm),память O(nm) , где n, m — размеры строк.
+     */ //сложность O(nm),память O(nm) , где n, m — размеры строк.
     public static String longestCommonSubSequence(String first, String second) {
         int[][] table = new int[first.length() + 1][second.length() + 1];
         StringBuilder s = new StringBuilder();
@@ -26,7 +28,7 @@ public class JavaDynamicTasks {
                 if (first.charAt(i) == second.charAt(j)) {
                     table[i][j] = 1 + table[i + 1][j + 1];
                 } else {
-                    table[i][j] = Math.max(table[i + 1][j], table[i][j + 1]);
+                    table[i][j] = max(table[i + 1][j], table[i][j + 1]);
                 }
             }
         }
@@ -59,9 +61,74 @@ public class JavaDynamicTasks {
      * то вернуть ту, в которой числа расположены раньше (приоритет имеют первые числа).
      * В примере ответами являются 2, 8, 9, 12 или 2, 5, 9, 12 -- выбираем первую из них.
      */
+    //сложность О(n^2),память O(n),Где n-кол-во элементов в лист.
+    /**Все что закоментированно я пытался реализовать данное задание за O(nlog(n)), но как мне кажется
+     * это возможно только для самой длинной последоательности ,которая находится последняя
+    */
     public static List<Integer> longestIncreasingSubSequence(List<Integer> list) {
-        throw new NotImplementedError();
+
+        int n = list.size();
+        if (n == 0) return new LinkedList<>();
+
+        int[] d = new int[n];
+        //  int[] pos = new int[n];
+        int[] prev = new int[n];
+        int length ;
+        int counter = 0;
+        // pos[0] = -1;
+        // d[0] = Integer.MIN_VALUE;
+        // for (int i = 1; i < n; i++) {
+        //     d[i] = Integer.MAX_VALUE;
+        // }
+        // for (int i = 0; i < n; i++) {
+        //     int l = -1;
+        //     int j = list.size();
+        //     while (l < j - 1) {
+        //         int m = (l + j) / 2;
+        //         if (d[m] < list.get(i))
+        //             l = m;
+        //         else
+        //             j = m;
+        //     }
+        //     if (d[j - 1] < list.get(i) && list.get(i) < d[j] ) {
+        //         d[j] = list.get(i);
+        //         pos[j] = i;
+        //         prev[i] = pos[j - 1];
+        //         length = max(length, j);
+        //     }
+        // }
+        for (int i = 0; i < n; i++) {
+            d[i] = 1;
+            prev[i] = -1;
+            for (int j = 0; j < i; j++) {
+                if (list.get(j) < list.get(i) && d[j] + 1 > d[i]) {
+                    d[i] = d[j] + 1;
+                    prev[i] = j;
+                }
+            }
+        }
+        int pos = 0;
+        length = d[0];
+        for (int i = 0; i < n; i++) {
+            if (d[i] > length) {
+                pos = i;
+                length = d[i];
+            }
+        }
+        List<Integer> answer = new LinkedList<>();
+        // int p = pos[length];
+        // while (p != -1) {
+        //     answer.add(list.get(p));
+        //     p = prev[p];
+        // }
+        while (pos != -1) {
+            answer.add(list.get(pos));
+            pos = prev[pos];
+        }
+        Collections.reverse(answer);
+        return answer;
     }
+
 
     /**
      * Самый короткий маршрут на прямоугольном поле.
