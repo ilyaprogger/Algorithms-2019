@@ -69,12 +69,11 @@ public class JavaDynamicTasks {
 
         int n = list.size();
         if (n == 0) return new LinkedList<>();
-
-        int[] d = new int[n];
-        //  int[] pos = new int[n];
+        int[] index = new int[n];
         int[] prev = new int[n];
         int length ;
-        int counter = 0;
+
+        // int[] pos = new int[n];
         // pos[0] = -1;
         // d[0] = Integer.MIN_VALUE;
         // for (int i = 1; i < n; i++) {
@@ -97,36 +96,38 @@ public class JavaDynamicTasks {
         //         length = max(length, j);
         //     }
         // }
-        for (int i = 0; i < n; i++) {
-            d[i] = 1;
-            prev[i] = -1;
-            for (int j = 0; j < i; j++) {
-                if (list.get(j) < list.get(i) && d[j] + 1 > d[i]) {
-                    d[i] = d[j] + 1;
-                    prev[i] = j;
-                }
-            }
-        }
-        int pos = 0;
-        length = d[0];
-        for (int i = 0; i < n; i++) {
-            if (d[i] > length) {
-                pos = i;
-                length = d[i];
-            }
-        }
-        List<Integer> answer = new LinkedList<>();
+        // List<Integer> result = new LinkedList<>();
         // int p = pos[length];
         // while (p != -1) {
         //     answer.add(list.get(p));
         //     p = prev[p];
         // }
+        for (int i = 0; i < n; i++) {
+            index[i] = 1;
+            prev[i] = -1;
+            for (int j = 0; j < i; j++) {
+                if (list.get(j) < list.get(i) && index[j] + 1 > index[i]) {
+                    index[i] = index[j] + 1;
+                    prev[i] = j;
+                }
+            }
+        }
+        int pos = 0;
+        length = index[0];
+        for (int i = 0; i < n; i++) {
+            if (index[i] > length) {
+                pos = i;
+                length = index[i];
+            }
+        }
+
+        List<Integer> result = new LinkedList<>();
         while (pos != -1) {
-            answer.add(list.get(pos));
+            result.add(list.get(pos));
             pos = prev[pos];
         }
-        Collections.reverse(answer);
-        return answer;
+        Collections.reverse(result);
+        return result;
     }
 
 
