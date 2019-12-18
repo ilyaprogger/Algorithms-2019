@@ -6,6 +6,7 @@ import lesson5.impl.GraphBuilder
 import lesson6.knapsack.Fill
 import lesson6.knapsack.Item
 import lesson6.knapsack.fillKnapsackGreedy
+import ru.spbstu.kotlin.generate.util.nextChar
 import java.util.*
 import kotlin.test.assertEquals
 import kotlin.test.assertTrue

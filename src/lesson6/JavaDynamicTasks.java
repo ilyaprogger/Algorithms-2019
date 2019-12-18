@@ -61,17 +61,20 @@ public class JavaDynamicTasks {
      * то вернуть ту, в которой числа расположены раньше (приоритет имеют первые числа).
      * В примере ответами являются 2, 8, 9, 12 или 2, 5, 9, 12 -- выбираем первую из них.
      */
+
     //сложность О(n^2),память O(n),Где n-кол-во элементов в лист.
-    /**Все что закоментированно я пытался реализовать данное задание за O(nlog(n)), но как мне кажется
+
+    /**
+     * Все что закоментированно я пытался реализовать данное задание за O(nlog(n)), но как мне кажется
      * это возможно только для самой длинной последоательности ,которая встречается позже всех.
-    */
+     */
     public static List<Integer> longestIncreasingSubSequence(List<Integer> list) {
 
         int n = list.size();
         if (n == 0) return new LinkedList<>();
         int[] index = new int[n];
         int[] prev = new int[n];
-        int length ;
+        int length;
 
         // int[] pos = new int[n];
         // pos[0] = -1;
@@ -121,7 +124,7 @@ public class JavaDynamicTasks {
             }
         }
 
-        List<Integer> result = new LinkedList<>();
+        List<Integer> result = new ArrayList<>();
         while (pos != -1) {
             result.add(list.get(pos));
             pos = prev[pos];

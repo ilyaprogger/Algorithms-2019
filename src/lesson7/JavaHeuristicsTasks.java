@@ -7,6 +7,7 @@ import lesson6.knapsack.Fill;
 import lesson6.knapsack.Item;
 
 import java.util.List;
+import java.util.Random;
 
 // Примечание: в этом уроке достаточно решить одну задачу
 @SuppressWarnings("unused")
